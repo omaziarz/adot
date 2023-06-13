@@ -1,4 +1,3 @@
-
 type event_type = 'imp' | 'click';
 export interface CSVRow {
   lat: string;

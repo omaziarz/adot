@@ -1,5 +1,5 @@
 import haversine from 'haversine';
-import { CSV, CSVRow } from "./types";
+import { CSV, CSVRow } from '../types';
 
 interface Filter {
   lat: number;
@@ -7,20 +7,24 @@ interface Filter {
   name: string;
 }
 
-interface Result extends Filter{
+interface Result extends Filter {
   impressions: number;
   clicks: number;
 }
 
 function isInRange(row: CSVRow, filter: Filter) {
-  return haversine({ latitude: +row.lat, longitude: +row.lon }, { latitude: filter.lat, longitude: filter.lon }, {unit: 'meter', threshold: 500});
+  return haversine(
+    { latitude: +row.lat, longitude: +row.lon },
+    { latitude: filter.lat, longitude: filter.lon },
+    { unit: 'meter', threshold: 500 }
+  );
 }
 
 export function search(data: CSV, filters: Filter[]) {
   const result: Result[] = [];
 
   for (let i = 0; i < filters.length; i++) {
-    result[i] = Object.assign(filters[i], { impressions: 0, clicks: 0 })
+    result[i] = Object.assign(filters[i], { impressions: 0, clicks: 0 });
   }
 
   const dataLength = data.length;
