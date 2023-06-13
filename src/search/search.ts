@@ -1,6 +1,8 @@
 import haversine from 'haversine';
 import { CSV, CSVRow } from '../types';
 
+const THRESHOLD = process.env.THRESHOLD ? +process.env.THRESHOLD : 500;
+
 interface Filter {
   lat: number;
   lon: number;
@@ -16,7 +18,7 @@ function isInRange(row: CSVRow, filter: Filter) {
   return haversine(
     { latitude: +row.lat, longitude: +row.lon },
     { latitude: filter.lat, longitude: filter.lon },
-    { unit: 'meter', threshold: process.env.THRESHOLD ? +process.env.THRESHOLD : 500 }
+    { unit: 'meter', threshold: THRESHOLD }
   );
 }
 
