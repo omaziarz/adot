@@ -13,8 +13,6 @@ export function createHttpServer(data: CSV) {
       req.on('end', () => {
         const bodyJson = JSON.parse(Buffer.concat(body).toString());
 
-        console.log(bodyJson);
-
         const result = search(data, bodyJson);
 
         res.statusCode = 200;

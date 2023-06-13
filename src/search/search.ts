@@ -16,7 +16,7 @@ function isInRange(row: CSVRow, filter: Filter) {
   return haversine(
     { latitude: +row.lat, longitude: +row.lon },
     { latitude: filter.lat, longitude: filter.lon },
-    { unit: 'meter', threshold: 500 }
+    { unit: 'meter', threshold: process.env.THRESHOLD ? +process.env.THRESHOLD : 500 }
   );
 }
 
